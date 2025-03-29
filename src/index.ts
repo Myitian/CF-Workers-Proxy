@@ -15,21 +15,11 @@ if (typeof addEventListener === 'function') {
 
 async function proxyRequest(r: Request): Promise<Response> {
     const url = new URL(r.url)
-    const prefix = '/'
-    if (url.pathname.startsWith(prefix)) {
-        const remainingUrl = url.pathname.replace(new RegExp('^' + prefix), '')
-        let targetUrl = decodeURIComponent(remainingUrl)
-        if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
-            targetUrl = url.protocol + '//' + targetUrl
-        }
-        return fetch(targetUrl)
-    } else {
-        return new Response('Bad Request', {status: 400, statusText: 'Bad Request'})
-    }
+    const targetUrl = url.protocol + '//furina.myitian.bid:81' + decodeURIComponent(url.pathname)
+    return fetch(targetUrl, r)
 }
 
 interface FetchEvent extends Event {
     request: Request;
-
     respondWith(r: Promise<Response> | Response): Promise<Response>;
 }
