@@ -15,7 +15,7 @@ if (typeof addEventListener === 'function') {
 
 async function proxyRequest(r: Request): Promise<Response> {
     const url = new URL(r.url)
-    const prefix = '/worker/proxy/'
+    const prefix = '/'
     if (url.pathname.startsWith(prefix)) {
         const remainingUrl = url.pathname.replace(new RegExp('^' + prefix), '')
         let targetUrl = decodeURIComponent(remainingUrl)
